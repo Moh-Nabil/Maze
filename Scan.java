@@ -39,11 +39,13 @@ public class Scan {
 		y= scan.nextInt();
 		z= scan.nextInt();
 		
-		for(int i= 0; i< x; i++){
-			for(int j= 0; j< y; j++){
+		
+		for(int k= 0; k< z; k++){
+			for(int i= 0; i< x; i++){
 				String str= scan.next();
-				for(int k= 0; k< z; k++)
-					grid[i][j][k]= str.charAt(k);
+				for(int j= 0; j< y; j++){
+					grid[i][j][k]= str.charAt(j);
+				}
 			}
 		}
 		
@@ -51,13 +53,15 @@ public class Scan {
 	}
 	
 	public void printGrid(){
-		System.out.println("x= " + x + "y= " + y + "z= " + z);
-		for(int i= 0; i< x; i++){
-			for(int j= 0; j< y; j++){
-				for(int k= 0; k< z; k++)
-					System.out.print(grid[i][j][k]);
-				System.out.println("\n");
+		System.out.println("x= " + x + " y= " + y + " z= " + z);
+		for(int k= 0; k< z; k++){
+			for(int i= 0; i< x; i++){
+				for(int j= 0; j< y; j++){
+						System.out.print(grid[i][j][k]);
+				}
+				System.out.println();
 			}
+			System.out.println();
 		}
 	}
 }
