@@ -98,6 +98,7 @@ public class MazeTraverse {
 				
 				if (newx < 0 || newy < 0 || newz < 0 || newx == N || newy == M || newz == K) continue;
 				if (vis[newx][newy][newz] || grid[newx][newy][newz] == '#') continue;
+//				if (i > 3 && grid[newx][newy][newz] != 'A') continue;
 				
 				vis[newx][newy][newz] = true;
 				parent[newx][newy][newz] = c;
@@ -149,6 +150,7 @@ public class MazeTraverse {
 				
 				if (newx < 0 || newy < 0 || newz < 0 || newx == N || newy == M || newz == K) continue;
 				if (vis[newx][newy][newz] || grid[newx][newy][newz] == '#') continue;
+//				if (i > 3 && grid[newx][newy][newz] != 'A') continue;
 				
 				vis[newx][newy][newz] = true;
 				parent[newx][newy][newz] = c;

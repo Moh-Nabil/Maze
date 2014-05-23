@@ -111,6 +111,8 @@ public class Play {
 			}
 			printGrid(current);
 		}
+		scan.close();
+		
 	}
 	
 	public void printGrid(Cell curr){
