@@ -56,7 +56,7 @@ public class Scan {
 			for(int j= 0; j< y; j++){
 				for(int k= 0; k< z; k++)
 					System.out.print(grid[i][j][k]);
-				System.out.println();
+				System.out.println("\n");
 			}
 		}
 	}
