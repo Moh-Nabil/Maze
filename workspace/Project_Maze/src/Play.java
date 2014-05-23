@@ -19,6 +19,8 @@ public class Play {
 				}
 			}
 		}
+		
+		System.out.println("i= " + current.getX() + " j= " + current.getY() + " k= " + current.getZ());
 	}
 	
 	public void move(){
@@ -30,7 +32,7 @@ public class Play {
 		
 		int moves= 0;
 		Scanner scan= new Scanner(System.in);
-		System.out.println("1.Right\n2.Left\n3.Up\n4.Down");
+		System.out.println("1.Right\n2.Left\n3.Up\n4.Down\n5.Next Level\n6.Previous Level");
 		while(true){
 			
 			i= current.getX(); j= current.getY(); k= current.getZ();
@@ -39,23 +41,13 @@ public class Play {
 				System.out.println("Your moves: " + moves);
 				break;
 			}
-			System.out.println("1.R 2.L 3.U 4.D");
+			System.out.println("1.R 2.L 3.U 4.D 5.NL 6.PL");
 			int choice= scan.nextInt();
 			
 			switch (choice){
 				case 4:
 					if(i+1==x || grid[i+1][j][k]=='#'){
 						System.out.println("Invalid move !!");
-					}
-					else if(grid[i+1][j][k] == 'A'){
-						current.setX(i+1);
-						if(grid[i+1][j][k+1] == 'A'){
-							current.setZ(k+1);
-						}
-						else if(grid[i+1][j][k-1] == 'A'){
-							current.setZ(k-1);
-						}
-						moves++;
 					}
 					else{
 						moves++;
@@ -66,16 +58,6 @@ public class Play {
 					if(i-1<0 || grid[i-1][j][k]=='#'){
 						System.out.println("Invalid move !!");
 					}
-					else if(grid[i-1][j][k] == 'A'){
-						current.setX(i-1);
-						if(grid[i-1][j][k+1] == 'A'){
-							current.setZ(k+1);
-						}
-						else if(grid[i-1][j][k-1] == 'A'){
-							current.setZ(k-1);
-						}
-						moves++;
-					}
 					else{
 						moves++;
 						current.setX(i-1);
@@ -84,16 +66,6 @@ public class Play {
 				case 2:
 					if(j-1<0 || grid[i][j-1][k]=='#'){
 						System.out.println("Invalid move !!");
-					}
-					else if(grid[i][j-1][k] == 'A'){
-						current.setY(j-1);
-						if(grid[i][j-1][k+1] == 'A'){
-							current.setZ(k+1);
-						}
-						else if(grid[i][j-1][k-1] == 'A'){
-							current.setZ(k-1);
-						}
-						moves++;
 					}
 					else{
 						moves++;
@@ -104,20 +76,34 @@ public class Play {
 					if(j+1==y || grid[i][j+1][k]=='#'){
 						System.out.println("Invalid move !!");
 					}
-					else if(grid[i][j+1][k] == 'A'){
-						current.setY(j+1);
-						if(grid[i][j+1][k+1] == 'A'){
-							current.setZ(k+1);
-						}
-						else if(grid[i][j+1][k-1] == 'A'){
-							current.setZ(k-1);
-						}
-						moves++;
-					}
 					else{
 						moves++;
 						current.setY(j+1);
 					}
+					break;
+				case 5:
+					if(grid[i][j][k] == 'A'){
+						if(k+1 != z && grid[i][j][k+1] != '#'){
+							current.setZ(k+1);
+							moves++;
+						}
+						else
+							System.out.println("Invalid move !!");
+					}
+					else
+						System.out.println("Invalid move !!");
+					break;
+				case 6:
+					if(grid[i][j][k] == 'A'){
+						if(k-1 >= 0 && grid[i][j][k-1] != '#'){
+							current.setZ(k-1);
+							moves++;
+						}
+						else
+							System.out.println("Invalid move !!");
+					}
+					else
+						System.out.println("Invalid move !!");
 					break;
 				default:
 					System.out.println("Invalid input !!");
