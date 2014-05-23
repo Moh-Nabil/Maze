@@ -1,6 +1,6 @@
 
 public class Cell {
-	public int x,y,z;
+	private int x,y,z;
 	
 	public Cell (int x , int y , int z)
 	{
