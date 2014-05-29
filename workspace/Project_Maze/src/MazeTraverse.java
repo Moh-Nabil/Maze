@@ -5,10 +5,20 @@ import java.util.Collections;
 public class MazeTraverse {
 	
 	private char grid[][][];
+	private boolean isPath[][][];
 	private int dx[] = {1,0,-1,0,0,0};
 	private int dy[] = {0,-1,0,1,0,0};
 	private int dz[] = {0,0,0,0,-1,1};
-	
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_BLACK = "\u001B[30m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_WHITE = "\u001B[37m";
+
 	private int N,M,K;
 	
 	public MazeTraverse (char grid[][][] , int n , int m , int k)
@@ -18,6 +28,7 @@ public class MazeTraverse {
 		this.K = k;
 		
 		this.grid = grid;
+		isPath = new boolean[n][m][k];
 	}
 	
 	private Cell getStart() {
@@ -48,6 +59,7 @@ public class MazeTraverse {
 		while (!cur.isEqual(new Cell(-1,-1,-1)))
 		{
 			path.add(cur);
+			isPath[cur.getX()][cur.getY()][cur.getZ()] = true;
 			cur = parent[cur.getX()][cur.getY()][cur.getZ()];
 		}
 		Collections.reverse(path);
@@ -57,6 +69,16 @@ public class MazeTraverse {
 	private void printPath (Cell end , Cell parent[][][]){
 		ArrayList<Cell> path = getPath(end,parent);
 		
+		for (int k=0 ; k<K ; k++) {
+			for (int i=0 ; i<N ; i++){
+				for (int j=0 ; j<M ; j++){
+					if (isPath[i][j][k] && grid[i][j][k] == '.') System.out.print("×");
+					else System.out.print(ANSI_RED + grid[i][j][k]);
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
 		for (int i=1 ; i<path.size() ; i++)
 			System.out.println(path.get(i).getDir(path.get(i-1)));
 		System.out.println("Number of Moves:" + (path.size()-1));

@@ -20,7 +20,7 @@ public class Play {
 			}
 		}
 		
-		System.out.println("i= " + current.getX() + " j= " + current.getY() + " k= " + current.getZ());
+		//System.out.println("i= " + current.getX() + " j= " + current.getY() + " k= " + current.getZ());
 	}
 	
 	public void move(){
