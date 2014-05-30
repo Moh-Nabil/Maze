@@ -63,6 +63,17 @@ public class Main {
 	public static void playGame (int op) throws Exception {
 		
 		char [][][] grid = new Generating(N,M,K).randomize();
+		
+		while (true)
+		{
+			char [][][] tmp = new Generating(N,M,K).randomize();
+			MazeTraverse tmpMaze = new MazeTraverse(tmp,N,M,K);
+			if (!tmpMaze.blockCheck()){
+				grid=tmp;
+				break;
+			}
+		}
+		
 		Play game = new Play(grid,N,M,K);
 		MazeTraverse maze = new MazeTraverse(grid,N,M,K);
 		

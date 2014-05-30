@@ -34,7 +34,7 @@ public class Play {
 		Scanner scan= new Scanner(System.in);
 		System.out.println("1.Right\n2.Left\n3.Up\n4.Down\n5.Next Level\n6.Previous Level");
 		while(true){
-			
+			printGrid(current);
 			i= current.getX(); j= current.getY(); k= current.getZ();
 			if(grid[i][j][k] == 'E'){
 				System.out.println("YOU WIN !!");
@@ -109,7 +109,6 @@ public class Play {
 					System.out.println("Invalid input !!");
 					break;
 			}
-			printGrid(current);
 		}
 		scan.close();
 		

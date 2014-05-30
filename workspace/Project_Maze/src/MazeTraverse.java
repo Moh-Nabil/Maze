@@ -18,8 +18,8 @@ public class MazeTraverse {
 	public static final String ANSI_PURPLE = "\u001B[35m";
 	public static final String ANSI_CYAN = "\u001B[36m";
 	public static final String ANSI_WHITE = "\u001B[37m";
-
 	private int N,M,K;
+	public boolean mazeBlocked;
 	
 	public MazeTraverse (char grid[][][] , int n , int m , int k)
 	{
@@ -28,7 +28,6 @@ public class MazeTraverse {
 		this.K = k;
 		
 		this.grid = grid;
-		isPath = new boolean[n][m][k];
 	}
 	
 	private Cell getStart() {
@@ -73,7 +72,7 @@ public class MazeTraverse {
 			for (int i=0 ; i<N ; i++){
 				for (int j=0 ; j<M ; j++){
 					if (isPath[i][j][k] && grid[i][j][k] == '.') System.out.print("×");
-					else System.out.print(ANSI_RED + grid[i][j][k]);
+					else System.out.print(grid[i][j][k]);
 				}
 				System.out.println();
 			}
@@ -84,10 +83,59 @@ public class MazeTraverse {
 		System.out.println("Number of Moves:" + (path.size()-1));
 	}
 	
+	public boolean blockCheck () throws Exception {
+		Stack S = new Stack();
+		boolean vis[][][] = new boolean [N][M][K];
+		Cell parent[][][] = new Cell [N][M][K];
+		isPath = new boolean[N][M][K];
+		
+		Cell start = getStart();
+		Cell end = getEnd();
+		
+		S.push(start);
+		vis[start.getX()][start.getY()][start.getZ()] = true;
+		parent[start.getX()][start.getY()][start.getZ()] = new Cell(-1,-1,-1);
+		
+		boolean isBlocked = true;
+		
+		while (!S.isEmpty()) {
+			Cell c = (Cell) S.peek();
+			int x = c.getX();
+			int y = c.getY();
+			int z = c.getZ();
+			S.pop();
+			
+			if (c.isEqual(end)) {
+				isBlocked = false;
+				break;
+			}
+			
+			int D=4;
+			if (grid[x][y][z] == 'A') D=6;
+			
+			for (int i=0 ; i<D ; i++){
+				int newx = x+dx[i];
+				int newy = y+dy[i];
+				int newz = z+dz[i];
+				
+				if (newx < 0 || newy < 0 || newz < 0 || newx == N || newy == M || newz == K) continue;
+				if (vis[newx][newy][newz] || grid[newx][newy][newz] == '#') continue;
+//				if (i > 3 && grid[newx][newy][newz] != 'A') continue;
+				
+				vis[newx][newy][newz] = true;
+				parent[newx][newy][newz] = c;
+				S.push(new Cell(newx,newy,newz));
+			}
+		}
+		
+		return isBlocked;
+	}
+	
 	public void DFS () throws Exception {
 		Stack S = new Stack();
 		boolean vis[][][] = new boolean [N][M][K];
 		Cell parent[][][] = new Cell [N][M][K];
+		isPath = new boolean[N][M][K];
 		
 		Cell start = getStart();
 		Cell end = getEnd();
@@ -134,12 +182,15 @@ public class MazeTraverse {
 		else{
 			printPath(end,parent);
 		}
+		
+		mazeBlocked = isBlocked;
 	}
 	
 	public void BFS () throws Exception {
 		Queue Q = new Queue();
 		boolean vis[][][] = new boolean [N][M][K];
 		Cell parent[][][] = new Cell [N][M][K];
+		isPath = new boolean[N][M][K];
 		
 		Cell start = getStart();
 		Cell end = getEnd();
