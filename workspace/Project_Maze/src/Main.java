@@ -5,6 +5,9 @@ public class Main {
 	
 	static Scanner sc = new Scanner(System.in);
 	static int N,M,K;
+	static boolean scanFile = false;
+	static char[][][] gridFile;
+	static Scan mazeSC;
 	
 	public static void getDiff (int d) {
 		
@@ -32,6 +35,14 @@ public class Main {
 			System.out.print("Enter no of levels: ");
 			K = sc.nextInt();
 			break;
+		case 5:
+			scanFile = true;
+			mazeSC = new Scan("test.in");
+			gridFile = mazeSC.scanning();
+			N = mazeSC.getX();
+			M = mazeSC.getY();
+			K = mazeSC.getZ();
+			break;
 		default:
 			System.out.println("Invalid choice");
 			break;
@@ -48,6 +59,7 @@ public class Main {
 		System.out.println("2- Medium (5x5 - Multi Levels)");
 		System.out.println("3- Hard (8x8 - Multi Levels)");
 		System.out.println("4- Custom (Choose grid dimensions manually)");
+		System.out.println("5- Read from file");
 		
 		int diff = sc.nextInt();
 		getDiff(diff);
@@ -62,9 +74,10 @@ public class Main {
 
 	public static void playGame (int op) throws Exception {
 		
-		char [][][] grid = new Generating(N,M,K).randomize();
-		
-		while (true)
+		char [][][] grid = new char[1][1][1];
+		//System.out.println(scanFile);
+		if (scanFile) grid = gridFile;
+		while (true && !scanFile)
 		{
 			char [][][] tmp = new Generating(N,M,K).randomize();
 			MazeTraverse tmpMaze = new MazeTraverse(tmp,N,M,K);

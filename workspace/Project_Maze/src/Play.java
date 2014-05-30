@@ -32,7 +32,7 @@ public class Play {
 		
 		int moves= 0;
 		Scanner scan= new Scanner(System.in);
-		System.out.println("1.Right\n2.Left\n3.Up\n4.Down\n5.Next Level\n6.Previous Level");
+		System.out.println("6 -> Right\n4 -> Left\n8 -> Up\n2 -> Down\n1 -> Next Level\n3 -> 4Previous Level\n");
 		while(true){
 			printGrid(current);
 			i= current.getX(); j= current.getY(); k= current.getZ();
@@ -41,11 +41,12 @@ public class Play {
 				System.out.println("Your moves: " + moves);
 				break;
 			}
-			System.out.println("1.R 2.L 3.U 4.D 5.NL 6.PL");
+			
+			//System.out.println("1.R 2.L 3.U 4.D 5.NL 6.PL");
 			int choice= scan.nextInt();
 			
 			switch (choice){
-				case 4:
+				case 2:
 					if(i+1==x || grid[i+1][j][k]=='#'){
 						System.out.println("Invalid move !!");
 					}
@@ -54,7 +55,7 @@ public class Play {
 						current.setX(i+1);
 					}
 					break;
-				case 3:
+				case 8:
 					if(i-1<0 || grid[i-1][j][k]=='#'){
 						System.out.println("Invalid move !!");
 					}
@@ -63,7 +64,7 @@ public class Play {
 						current.setX(i-1);
 					}
 					break;
-				case 2:
+				case 4:
 					if(j-1<0 || grid[i][j-1][k]=='#'){
 						System.out.println("Invalid move !!");
 					}
@@ -72,7 +73,7 @@ public class Play {
 						current.setY(j-1);
 					}
 					break;
-				case 1:
+				case 6:
 					if(j+1==y || grid[i][j+1][k]=='#'){
 						System.out.println("Invalid move !!");
 					}
@@ -81,7 +82,7 @@ public class Play {
 						current.setY(j+1);
 					}
 					break;
-				case 5:
+				case 1:
 					if(grid[i][j][k] == 'A'){
 						if(k+1 != z && grid[i][j][k+1] != '#'){
 							current.setZ(k+1);
@@ -93,7 +94,7 @@ public class Play {
 					else
 						System.out.println("Invalid move !!");
 					break;
-				case 6:
+				case 3:
 					if(grid[i][j][k] == 'A'){
 						if(k-1 >= 0 && grid[i][j][k-1] != '#'){
 							current.setZ(k-1);
